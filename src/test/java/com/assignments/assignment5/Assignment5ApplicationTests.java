@@ -1,10 +1,10 @@
-package com.assignments.assignment7;
+package com.assignments.assignment5;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Assignment7ApplicationTests {
+class Assignment5ApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -1,4 +1,4 @@
-package com.assignments.assignment7.models;
+package com.assignments.assignment5.models;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
