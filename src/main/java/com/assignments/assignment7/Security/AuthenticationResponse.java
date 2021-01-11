@@ -13,13 +13,6 @@ public class AuthenticationResponse {
 }
 
 
-
-
-
-
-
-
-
 //@SpringBootApplication
 //public class AuthenticationResponse {
 	//private final String JWT;

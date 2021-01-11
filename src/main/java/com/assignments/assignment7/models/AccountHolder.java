@@ -1,7 +1,6 @@
 package com.assignments.assignment7.models;
 
 import java.util.*;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,11 +18,14 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "AccountHolder")
 public class AccountHolder {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "accountHolder_id")
@@ -52,9 +54,35 @@ public class AccountHolder {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "accountHolder", fetch = FetchType.LAZY)
 	private List<CDAccount> cDAccounts;
 	
+	//Assignment 7 Add in Methods
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "accountHolder",fetch = FetchType.LAZY)
+	private User user;
+
 	public AccountHolder() {
+		this.checkingAccounts = new ArrayList<>();
+		this.savingsAccounts = new ArrayList<>();
+		this.cDAccounts = new ArrayList<>();
+		
+	}
+	
+	//Assignment 7 Add in Methods
+	private String username;
+	
+	//Assignment 7 add in methods
+	public String getUsername() {
+		return username;
+	}
+	public void  setUsername( String username) {
+		this.username = username;
+	}
+	public User getUser() {
+		return user;
 	}
 
+	public void setUser(User user) {
+		this.user = user;
+	}
+		
 	@JsonManagedReference
 	public List<CheckingAccount> getCheckingAccounts() {
 		return checkingAccounts;
