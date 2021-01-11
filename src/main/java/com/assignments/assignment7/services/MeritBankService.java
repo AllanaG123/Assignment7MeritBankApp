@@ -40,6 +40,56 @@ public class MeritBankService {
 	private CDAccountRepository cdAccountRepository;
 	@Autowired
 	private CDOfferingRepository cdOfferingRepository;
+	//Assignment 7 Add in Methods
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	private RoleRepository roleRepository;
+    @Autowired
+    private MyUserDetailsService userDetailsService;
+    @Autowired
+    private JwtUtil jwtUtil;
+
+	public ResponseEntity<?> registerUser(SignupRequest signUpRequest) {
+		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+			return ResponseEntity
+					.badRequest()
+					.body("Error: Username is already taken!");
+		}
+		// Create new user's account
+		User user = new User(signUpRequest.getUsername(), 
+							 signUpRequest.getPassword());
+
+		Set<String> strRoles = signUpRequest.getRole();
+		Set<Role> roles = new HashSet<>();
+
+		if (strRoles == null) {
+			Role userRole = roleRepository.findByName(ERole.AccountHolder)
+					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+			roles.add(userRole);
+		} else {
+			strRoles.forEach(role -> {
+				switch (role) {
+				case "admin":
+					Role adminRole = roleRepository.findByName(ERole.admin)
+							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					roles.add(adminRole);
+
+					break;
+				case "AccountHolder":
+					Role userRole = roleRepository.findByName(ERole.AccountHolder)
+							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					roles.add(userRole);
+				}
+			});
+
+		}
+
+		user.setActive(signUpRequest.isActive());
+		user.setRoles(roles);
+		userRepository.save(user);
+
+		return ResponseEntity.ok("User registered successfully!");
 	
 	public AccountHolder addAccountHolder(AccountHolder accountHolder) {
 		return accountHolderRepository.save(accountHolder);

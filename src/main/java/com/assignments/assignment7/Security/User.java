@@ -41,13 +41,13 @@ public class User {
 		return userName;
 	}
 	
-	public AccountHolder getAccountHolder() {
-			return accountHolder;
+	//public AccountHolder getAccountHolder() {
+		//	return accountHolder;
 			
-	}
+	//}
 	
 	public void setAccountHolder(AccountHolder accountHolder) {
-		this.userName =userName;
+		this.userName = userName;
 		
 	}
 	

@@ -2,6 +2,7 @@ package com.assignments.assignment7.Security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import javax.servlet.FilterChain;
@@ -16,7 +17,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 
 
+@Service
 public class JwtRequestFilter {
+	private String SECRET_KEY = "secret";
+	
 	
 	
 	
